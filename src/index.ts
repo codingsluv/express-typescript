@@ -1,11 +1,10 @@
-import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
+import express, { Application, Request, Response } from "express";
+import "dotenv/config";
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const app:Application = express()
+const PORT:number = process.env.PORT != null ? Number(process.env.PORT) : 3000
 
-app.get("/", (req,res) => {
+app.get("/", (req:Request, res:Response) => {
     res.send("Hello World")
 })
 
