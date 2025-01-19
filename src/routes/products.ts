@@ -1,15 +1,19 @@
-import { NextFunction, Request, Response, Router } from "express";
-import { createProduct, getAllProducts } from "../controllers/products.controller";
+import { Router } from 'express'
+import {
+  createProduct,
+  deleteProduct,
+  getAllProducts,
+  getProductById,
+  updateProduct
+} from '../controllers/products.controller'
+import AsyncHandler from 'express-async-handler'
 
-const productRouter:Router = Router();
+const productRouter: Router = Router()
 
-productRouter.get("/products", (req:Request, res:Response, next:NextFunction) => {
-    getAllProducts(req, res, next)
-})
+productRouter.get('/products', AsyncHandler(getAllProducts))
+productRouter.get('/products/:id', AsyncHandler(getProductById))
+productRouter.post('/products', AsyncHandler(createProduct))
+productRouter.put('/products/:id', AsyncHandler(updateProduct))
+productRouter.delete('/products/:id', AsyncHandler(deleteProduct))
 
-productRouter.post("/products", (req:Request, res:Response, next:NextFunction) => {
-    createProduct(req, res, next)
-})
-
-export default productRouter;
-
+export default productRouter
